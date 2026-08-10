@@ -11,7 +11,7 @@ const Challans = () => {
   const fetchChallans = async () => {
     setLoading(true);
     try {
-      const res = await fetch(`http://localhost:5000/api/challans`, {
+      const res = await fetch(`/api/challans`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();

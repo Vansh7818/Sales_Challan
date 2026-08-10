@@ -16,9 +16,9 @@ const Dashboard = () => {
       try {
         const headers = { 'Authorization': `Bearer ${token}` };
         const [cRes, pRes, chRes] = await Promise.all([
-          fetch('http://localhost:5000/api/customers', { headers }),
-          fetch('http://localhost:5000/api/products', { headers }),
-          fetch('http://localhost:5000/api/challans', { headers }),
+          fetch('/api/customers', { headers }),
+          fetch('/api/products', { headers }),
+          fetch('/api/challans', { headers }),
         ]);
 
         const [customers, products, challans] = await Promise.all([

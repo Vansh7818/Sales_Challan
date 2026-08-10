@@ -21,8 +21,8 @@ const CreateChallan = () => {
       try {
         const headers = { 'Authorization': `Bearer ${token}` };
         const [cRes, pRes] = await Promise.all([
-          fetch('http://localhost:5000/api/customers?status=ACTIVE', { headers }),
-          fetch('http://localhost:5000/api/products', { headers })
+          fetch('/api/customers?status=ACTIVE', { headers }),
+          fetch('/api/products', { headers })
         ]);
         setCustomers(await cRes.json());
         setProducts(await pRes.json());
@@ -59,7 +59,7 @@ const CreateChallan = () => {
         throw new Error('Please add at least one product');
       }
 
-      const res = await fetch('http://localhost:5000/api/challans', {
+      const res = await fetch('/api/challans', {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',

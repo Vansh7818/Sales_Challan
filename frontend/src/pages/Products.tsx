@@ -12,7 +12,7 @@ const Products = () => {
     setLoading(true);
     try {
       const query = search ? `?search=${search}` : '';
-      const res = await fetch(`http://localhost:5000/api/products${query}`, {
+      const res = await fetch(`/api/products${query}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();

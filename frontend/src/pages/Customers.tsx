@@ -12,7 +12,7 @@ const Customers = () => {
     setLoading(true);
     try {
       const query = search ? `?search=${search}` : '';
-      const res = await fetch(`http://localhost:5000/api/customers${query}`, {
+      const res = await fetch(`/api/customers${query}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const data = await res.json();
