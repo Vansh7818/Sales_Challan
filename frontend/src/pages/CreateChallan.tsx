@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import { Plus, Trash2, Save, CheckCircle } from 'lucide-react';
+import { Plus, Trash2, Save } from 'lucide-react';
 
 const CreateChallan = () => {
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   
   const [customers, setCustomers] = useState([]);
