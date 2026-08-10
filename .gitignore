@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+node-v20.11.1-win-x64/
+
+# Environment
+.env
+*.env.local
+*.env.production
+
+# Build output
+dist/
+build/
+
+# Prisma
+prisma/*.db
+prisma/*.db-journal
+
+# Logs
+*.log
+npm-debug.log*
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db

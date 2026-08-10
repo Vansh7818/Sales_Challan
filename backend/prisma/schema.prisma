@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String          @id @default(uuid())
+  email     String          @unique
+  password  String
+  role      Role
+  name      String
+  challans  Challan[]
+  stockLogs StockMovement[]
+  createdAt DateTime        @default(now())
+}
+
+enum Role {
+  ADMIN
+  SALES
+  WAREHOUSE
+  ACCOUNTS
+}
+
+model Customer {
+  id           String         @id @default(uuid())
+  name         String
+  mobile       String
+  email        String
+  businessName String
+  gstNumber    String?
+  type         CustomerType
+  address      String
+  status       CustomerStatus
+  followUpDate DateTime?
+  notes        String?
+  challans     Challan[]
+  createdAt    DateTime       @default(now())
+}
+
+enum CustomerType {
+  RETAIL
+  WHOLESALE
+  DISTRIBUTOR
+}
+
+enum CustomerStatus {
+  LEAD
+  ACTIVE
+  INACTIVE
+}
+
+model Product {
+  id            String          @id @default(uuid())
+  name          String
+  sku           String          @unique
+  category      String
+  unitPrice     Float
+  currentStock  Int             @default(0)
+  minStockAlert Int             @default(0)
+  location      String
+  stockLogs     StockMovement[]
+  createdAt     DateTime        @default(now())
+}
+
+model StockMovement {
+  id        String       @id @default(uuid())
+  productId String
+  product   Product      @relation(fields: [productId], references: [id])
+  quantity  Int
+  type      MovementType
+  reason    String
+  userId    String
+  user      User         @relation(fields: [userId], references: [id])
+  timestamp DateTime     @default(now())
+}
+
+enum MovementType {
+  IN
+  OUT
+}
+
+model Challan {
+  id         String        @id @default(uuid())
+  challanNo  String        @unique
+  customerId String
+  customer   Customer      @relation(fields: [customerId], references: [id])
+  status     ChallanStatus
+  userId     String
+  user       User          @relation(fields: [userId], references: [id])
+  totalQty   Int
+  items      ChallanItem[]
+  createdAt  DateTime      @default(now())
+}
+
+enum ChallanStatus {
+  DRAFT
+  CONFIRMED
+  CANCELLED
+}
+
+model ChallanItem {
+  id          String  @id @default(uuid())
+  challanId   String
+  challan     Challan @relation(fields: [challanId], references: [id])
+  productId   String
+  productName String
+  sku         String
+  unitPrice   Float
+  quantity    Int
+}
